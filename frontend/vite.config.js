@@ -7,4 +7,16 @@ export default defineConfig({
   optimizeDeps: {
     include: ["pdfjs-dist"],
   },
+  build: {
+    outDir: "dist", // default, Vercel expects this
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
