@@ -74,7 +74,13 @@ exports.deletePDF = async (req, res) => {
     }
 
     // Delete file from filesystem
-    fs.unlinkSync(pdf.path);
+    try {
+      if (fs.existsSync(pdf.path)) {
+        fs.unlinkSync(pdf.path);
+      }
+    } catch (err) {
+      console.warn("File not found or already deleted:", pdf.path);
+    }
 
     // Delete highlights associated with this PDF
     await Highlight.deleteMany({ pdf: pdf._id });
