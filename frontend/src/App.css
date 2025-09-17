@@ -367,3 +367,232 @@ body {
 .delete-confirmation-btn-confirm:hover {
   background: #c0392b;
 }
+
+/* responsive css */
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .container {
+    padding: 15px;
+  }
+
+  .pdf-card {
+    width: 45vw;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .navbar {
+    padding: 0.8rem 1rem;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .navbar-nav {
+    margin-top: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .body-container {
+    margin-top: 15vh;
+  }
+
+  .auth-container {
+    margin: 1rem;
+    padding: 1.5rem;
+    width: 90%;
+  }
+
+  .pdf-grid {
+    justify-content: center;
+  }
+
+  .pdf-card {
+    width: 90vw;
+    margin-bottom: 1rem;
+  }
+
+  .pdf-actions {
+    flex-wrap: wrap;
+  }
+
+  .viewer-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .viewer-controls button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .pdf-page {
+    width: 95vw;
+  }
+
+  .library-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  /* Mobile menu alternative */
+  .navbar-nav {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .nav-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .auth-container {
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .viewer-controls span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+
+  .highlight-popup {
+    min-width: 180px;
+    left: 50% !important;
+    transform: translateX(-50%);
+    top: 50% !important;
+  }
+
+  .delete-confirmation-modal {
+    margin: 0 10px;
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile menu styles */
+.mobile-menu-toggle {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block !important;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .navbar-nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-nav.mobile-open {
+    display: flex;
+  }
+
+  .navbar-nav li {
+    margin: 0.5rem 0;
+  }
+}
+.mobile-zoom-controls {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .mobile-zoom-controls {
+    display: flex;
+  }
+
+  .mobile-zoom-controls button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: bold;
+  }
+}
+@media (max-width: 480px) {
+  .auth-form input {
+    padding: 0.6rem;
+  }
+
+  .form-group {
+    gap: 0.3rem;
+  }
+
+  .auth-form .btn {
+    width: 100%;
+  }
+}
+/* Utility classes for responsive design */
+.hide-on-mobile {
+  display: block;
+}
+
+.show-on-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+
+  .show-on-mobile {
+    display: block;
+  }
+}
+
+/* Prevent horizontal scrolling */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  button,
+  .btn,
+  .nav-link {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  input,
+  textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}

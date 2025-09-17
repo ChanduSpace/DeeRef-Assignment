@@ -5,7 +5,6 @@ import { pdfAPI, highlightsAPI } from "../../services/pdf";
 import HighlightPopup from "./HighlightPopup";
 import { API_URL } from "../../utils/constants";
 
-// Use the worker from public folder
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 
 const PDFViewer = () => {
@@ -22,10 +21,21 @@ const PDFViewer = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   useEffect(() => {
     fetchPDF();
     fetchHighlights();
   }, [uuid]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const fetchPDF = async () => {
     try {
@@ -156,18 +166,29 @@ const PDFViewer = () => {
 
       <div className="viewer-controls">
         <button onClick={goToPreviousPage} disabled={pageNumber <= 1}>
-          Previous
+          {isMobile ? "◀" : "Previous"}
         </button>
         <span>
           Page {pageNumber} of {numPages}
         </span>
         <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
-          Next
+          {isMobile ? "▶" : "Next"}
         </button>
-        <button onClick={zoomOut}>Zoom Out</button>
-        <span>Scale: {scale.toFixed(1)}x</span>
-        <button onClick={zoomIn}>Zoom In</button>
+        {!isMobile && (
+          <>
+            <button onClick={zoomOut}>Zoom Out</button>
+            <span>Scale: {scale.toFixed(1)}x</span>
+            <button onClick={zoomIn}>Zoom In</button>
+          </>
+        )}
       </div>
+      {isMobile && (
+        <div className="mobile-zoom-controls">
+          <button onClick={zoomOut}>-</button>
+          <span>Zoom</span>
+          <button onClick={zoomIn}>+</button>
+        </div>
+      )}
 
       <div className="pdf-container" style={{ position: "relative" }}>
         <div onMouseUp={handleTextSelection}>
@@ -177,15 +198,13 @@ const PDFViewer = () => {
             loading={<div>Loading PDF...</div>}
             error={<div className="error">Failed to load PDF file.</div>}
           >
-            <div className="pdf-board">
-              <Page
-                pageNumber={pageNumber}
-                scale={scale}
-                renderMode="canvas"
-                loading={<div>Loading page...</div>}
-                className="pdf-page"
-              />
-            </div>
+            <Page
+              pageNumber={pageNumber}
+              scale={scale}
+              renderMode="canvas"
+              loading={<div>Loading page...</div>}
+              className="pdf-page"
+            />
           </Document>
         </div>
 
