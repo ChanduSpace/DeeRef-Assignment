@@ -20,10 +20,20 @@ app.use(express.urlencoded({ extended: false }));
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Routes
+// API Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/pdfs", require("./routes/pdf"));
 app.use("/api/highlights", require("./routes/highlights"));
+
+// ---------- 👇 ADD THIS for frontend build ----------
+const frontendPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(frontendPath));
+
+// Catch-all route → send React index.html
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+// -----------------------------------------------------
 
 // Error handling middleware
 app.use((error, req, res, next) => {
