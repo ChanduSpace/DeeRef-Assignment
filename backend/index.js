@@ -26,7 +26,7 @@ app.use("/api/pdfs", require("./routes/pdf"));
 app.use("/api/highlights", require("./routes/highlights"));
 
 // ---------- 👇 ADD THIS for frontend build ----------
-const frontendPath = path.join(__dirname, "../frontend/dist");
+const frontendPath = path.join(__dirname, "frontend-dist");
 app.use(express.static(frontendPath));
 
 // Catch-all route → send React index.html
@@ -39,6 +39,10 @@ app.get(/.*/, (req, res) => {
 app.use((error, req, res, next) => {
   console.error(error);
   res.status(500).json({ message: "Server error" });
+});
+
+app.get("/health", (req, res, next) => {
+  send({ status: "ok" });
 });
 
 const PORT = process.env.PORT || 5000;
